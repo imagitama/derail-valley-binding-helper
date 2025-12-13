@@ -1,0 +1,11 @@
+{
+	"Id": "DerailValleyBindingHelper",
+	"Version": "1.0.0",
+	"DisplayName": "Binding Helper",
+	"Author": "Jared Williams",
+	"EntryMethod": "DerailValleyBindingHelper.Main.Load",
+	"ManagerVersion": "0.32.4",
+	"Repository": "https://raw.githubusercontent.com/imagitama/derail-valley-binding-helper/main/repository.json",
+	"Requirements": ["DerailValleyModToolbar"],
+	"LoadAfter": ["DerailValleyModToolbar"]
+}
