@@ -245,14 +245,20 @@ public static class BindingHelper
             // Logger.Log($"{binding.ActionId} Disabling {conflicts.Count} defaults: {string.Join(",", conflicts.Select(x => $"{x.actionDescriptiveName} ({x.controllerMap.controllerType})"))}");
 
             foreach (var conflict in conflicts)
+            {
                 conflict.enabled = false;
+                InputManager.Actions.SetActionDisabled(conflict.actionId, true);
+            }
         }
         else
         {
             // Logger.Log($"{binding.ActionId} Enabling {conflicts.Count} defaults: {string.Join(",", conflicts.Select(x => $"{x.actionDescriptiveName} ({x.controllerMap.controllerType})"))}");
 
             foreach (var conflict in conflicts)
+            {
                 conflict.enabled = true;
+                InputManager.Actions.SetActionDisabled(conflict.actionId, false);
+            }
         }
     }
 }

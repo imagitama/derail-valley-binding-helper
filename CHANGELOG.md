@@ -1,13 +1,12 @@
-# 0.0.3
+# 1.1.0
 
-- fixed player teleportation glitch
+- fixed default disabling
+- changed "add binding" to a template system for better control:
 
-# 0.0.2
+```cs
+BindingHelperUI.DrawBindings(settings.Bindings, template: settings.BindingTemplate);
+```
 
-- only allow upright landings
-- added tiny delay to rerail for smoother feel
-- added more settings
-
-# 0.0.1
+# 1.0.0
 
 Initial version.

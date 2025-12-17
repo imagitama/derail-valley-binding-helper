@@ -16,7 +16,7 @@ public static class BindingHelperUI
     private static int? _bindingIndexRecording;
     private static float _failsafeTimeLeft = 0f;
 
-    public static void DrawBindings(List<BindingInfo> bindings, int? actionIdToAdd = null, Action? OnUpdated = null)
+    public static void DrawBindings(List<BindingInfo> bindings, BindingInfo? template = null, Action? OnUpdated = null)
     {
         var controllers = BindingHelper.GetAllControllers();
 
@@ -48,19 +48,11 @@ public static class BindingHelperUI
         }
         GUILayout.EndHorizontal();
 
-        if (actionIdToAdd != null)
+        if (template != null)
             if (GUILayout.Button("Add Binding"))
             {
                 bindings.Add(
-                    new BindingInfo()
-                    {
-                        ActionId = actionIdToAdd.Value,
-                        ControllerId = 0,
-                        ControllerType = ControllerType.Keyboard,
-                        ControllerName = BindingHelper.GetControllerNameFromType(ControllerType.Keyboard) ?? "",
-                        ButtonName = "Space",
-                        ButtonId = BindingHelper.GetButtonId(ControllerType.Keyboard, 0, "Space")
-                    }
+                    template.Clone()
                 );
             }
     }
@@ -99,8 +91,6 @@ public static class BindingHelperUI
         }
 
         GUILayout.Label($"  Button name: {binding.ButtonName ?? "(none)"} ({(binding.ButtonId != null ? binding.ButtonId.Value : "(none)")})");
-        // var newButtonName = GUILayout.TextField(binding.ButtonName);
-        // var newButtonId = BindingHelper.GetButtonId(newControllerType, newControllerId, newButtonName);
 
         string? newButtonName = null;
         int? newButtonId = null;
@@ -180,6 +170,9 @@ public static class BindingHelperUI
             if (GUILayout.Button("Clear Binding"))
             {
                 newButtonId = null;
+                newButtonName = null;
+                binding.ButtonId = null;
+                binding.ButtonName = null;
             }
 
         var scheduleOnUpdated = false;
@@ -194,13 +187,6 @@ public static class BindingHelperUI
         )
         {
             scheduleOnUpdated = true;
-            //             Logger.Log($"CHANGED!!! " +
-            // $"  {binding.ControllerType} => {newControllerType} --- " +
-            // $"  {binding.ControllerName} => {newControllerName} --- " +
-            // $"  {binding.ControllerId} => {newControllerId} --- " +
-            // $"  {binding.ButtonName} => {newButtonName} --- " +
-            // $"  {binding.ButtonId} => {newButtonId}");
-
         }
 
         binding.ControllerType = newControllerType;
